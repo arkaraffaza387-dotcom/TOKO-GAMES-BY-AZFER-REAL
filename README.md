@@ -11,21 +11,19 @@
             --primary: #6c5ce7;
             --primary-dark: #5a4ad1;
             --secondary: #a29bfe;
-            --bg-dark: #0f0f12; /* Background sangat gelap */
-            --card-bg: #1a1a1d; /* Warna kartu */
+            --bg-dark: #0f0f12;
+            --card-bg: #1a1a1d;
             --text-light: #ffffff;
             --text-muted: #a0a0a0;
             --accent: #00cec9;
             --success: #00b894;
             --error: #d63031;
-            
-            /* Gradients */
+            --vip-gold: #fdcb6e;
             --member-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
             --vvip-gradient: linear-gradient(135deg, #d63031 0%, #ff7675 100%);
             --admin-gradient: linear-gradient(135deg, #2d3436 0%, #000000 100%);
             --apk-color: #ff7675;
             --netys-color: #00b894;
-            --vip-gold: #fdcb6e;
         }
 
         * {
@@ -40,6 +38,62 @@
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* SPLASH SCREEN ANIMATION */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f12 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.8s ease-out;
+        }
+
+        #splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .logo-container {
+            text-align: center;
+            animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo-svg {
+            width: 280px;
+            max-width: 90vw;
+            filter: drop-shadow(0 0 15px rgba(108, 92, 231, 0.5));
+        }
+
+        .splash-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #a29bfe;
+            letter-spacing: 2px;
+            animation: pulseText 2s infinite alternate;
+        }
+
+        @keyframes pulseText {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
 
         /* Header Modern */
@@ -133,12 +187,10 @@
             position: relative;
         }
 
-        /* Card Themes (Borders & Accents) */
         .ff-theme { border-top: 4px solid #ff9f43; }
         .ml-theme { border-top: 4px solid #0984e3; }
         .pubg-theme { border-top: 4px solid #fdcb6e; }
         .vip-theme { border-top: 4px solid var(--vip-gold); }
-        
         .member-theme .card-header { background: var(--member-gradient); color: white; }
         .vvip-theme .card-header { background: var(--vvip-gradient); color: white; }
         .admin-theme .card-header { background: var(--admin-gradient); color: white; border-bottom: 1px solid #333; }
@@ -219,10 +271,9 @@
             color: var(--secondary);
         }
 
-        /* Forms Modern */
         .form-group {
             margin-bottom: 15px;
-            margin-top: auto; /* Push to bottom */
+            margin-top: auto;
         }
 
         label {
@@ -299,7 +350,6 @@
             font-size: 1.4rem;
         }
 
-        /* Buttons Modern */
         .btn {
             display: block;
             width: 100%;
@@ -344,7 +394,6 @@
         .btn-netys { background-color: var(--netys-color); }
         .btn-netys:hover { background-color: #00a383; box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4); }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -353,7 +402,6 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             header h1 { font-size: 1.5rem; }
             .grid { grid-template-columns: 1fr; }
@@ -361,6 +409,43 @@
     </style>
 </head>
 <body>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="logo-container">
+            <!-- Logo ID Toko Games dalam bentuk SVG -->
+            <svg class="logo-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wings -->
+                <path d="M50,150 Q100,50 200,80 Q300,50 350,150 L330,170 Q280,100 200,120 Q120,100 70,170 Z" fill="#1a237e" stroke="#fff" stroke-width="2"/>
+                <path d="M70,170 Q120,100 200,120 Q280,100 330,170 L310,190 Q260,130 200,140 Q140,130 90,190 Z" fill="#3949ab" stroke="#fff" stroke-width="1.5"/>
+                
+                <!-- Shield Base -->
+                <path d="M100,180 L300,180 L280,260 Q200,280 120,260 Z" fill="#0d47a1" stroke="#fff" stroke-width="2"/>
+                
+                <!-- Stars -->
+                <polygon points="180,60 185,75 200,75 188,85 192,100 180,90 168,100 172,85 160,75 175,75" fill="#ffd700"/>
+                <circle cx="150" cy="70" r="5" fill="#fff"/>
+                <circle cx="250" cy="70" r="5" fill="#fff"/>
+                <circle cx="130" cy="80" r="3" fill="#fff"/>
+                <circle cx="270" cy="80" r="3" fill="#fff"/>
+                
+                <!-- ID Text -->
+                <text x="200" y="160" font-family="Arial Black, sans-serif" font-size="80" fill="#fff" text-anchor="middle" stroke="#000" stroke-width="3">ID</text>
+                
+                <!-- Year -->
+                <text x="80" y="200" font-family="Arial, sans-serif" font-size="20" fill="#fff">20</text>
+                <text x="80" y="225" font-family="Arial, sans-serif" font-size="20" fill="#fff">13</text>
+                <text x="320" y="200" font-family="Arial, sans-serif" font-size="20" fill="#fff">20</text>
+                <text x="320" y="225" font-family="Arial, sans-serif" font-size="20" fill="#fff">13</text>
+                
+                <!-- Banner -->
+                <rect x="60" y="270" width="280" height="40" rx="10" fill="#0d47a1" stroke="#fff" stroke-width="2"/>
+                <text x="200" y="298" font-family="Arial Black, sans-serif" font-size="24" fill="#fff" text-anchor="middle">TOKO GAMES</text>
+            </svg>
+            
+            <div class="splash-text">MEMUAT AZFER STORE...</div>
+        </div>
+    </div>
 
     <header>
         <h1>AZFER STORE</h1>
@@ -833,9 +918,29 @@
     </footer>
 
     <script>
+        // --- SPLASH SCREEN LOGIC ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const splash = document.getElementById('splash-screen');
+            
+            // Cek apakah sudah pernah lihat splash screen di sesi ini
+            if (!sessionStorage.getItem('splashShown')) {
+                // Tampilkan splash screen
+                splash.classList.remove('hidden');
+                
+                // Sembunyikan setelah 3 detik
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                    sessionStorage.setItem('splashShown', 'true');
+                }, 3000);
+            } else {
+                // Jika sudah pernah, langsung sembunyikan
+                splash.classList.add('hidden');
+            }
+        });
+
+        // --- KODE JS LAINNYA (KUPON, TOP UP, DLL) ---
         const waNumber = "6285882382854"; 
         
-        // --- DAFTAR KUPON TERSEDIA (TIDAK ADA TAMBAHAN BARU) ---
         const coupons = {
             "ADMIN_AZFER2013": { discount: 1.00, desc: "Diskon Admin 100% (GRATIS)" },
             "MEMBER_VVIP2013": { discount: 0.49, desc: "Diskon VVIP 49%" }, 
@@ -860,7 +965,6 @@
             'APK_DELTA': null
         };
 
-        // Fungsi Cek Kupon
         function checkCoupon(sectionId) {
             let inputId, msgId;
 
